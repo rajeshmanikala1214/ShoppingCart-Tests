@@ -48,9 +48,7 @@ module.exports = function (config) {
       testpage: 'webapp/test/integration/opaTests.qunit.html',
 
       // Serve UI5 runtime from CDN (mirrors what fiori-tools-proxy does).
-      url: {
-        gte: '1.148.0'
-      }
+       url: 'https://ui5.sap.com'
     },
 
     // ── Preprocessors ─────────────────────────────────────────────────────────
