@@ -41,7 +41,7 @@ module.exports = function (config) {
       // "npm run int-test".
       configPath: 'ui5.yaml',
 
-      mode: 'html',
+      mode: 'scripts',
 
       // The HTML entry point that bootstraps the full OPA5 test suite
       // (same file opened by "npm run int-test").
