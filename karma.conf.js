@@ -127,8 +127,9 @@ module.exports = function (config) {
     },
 
     client: {
-    clearContext: false
-    },
+  captureConsole: true,
+  clearContext: false
+},
 
     browserConsoleLogOptions: {
             level: 'debug',
