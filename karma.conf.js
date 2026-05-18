@@ -37,8 +37,8 @@ module.exports = function (config) {
     // ── UI5 / Karma-UI5 adapter config ────────────────────────────────────────
     ui5: {
         configPath: 'ui5.yaml',
-        mode: 'script',
-        testpage: 'webapp/test/integration/opaTests.qunit.html',
+        mode: 'html',
+        testpage: 'webapp/test/integration/opaTestsComponent.qunit.html',
         url: 'https://ui5.sap.com'
     },
 
