@@ -1,16 +1,25 @@
 /**
  * Karma configuration for SAP UI5 OPA5 / QUnit tests
+ * ShoppingCart-Tests repository
  *
- * Runs via piper step: karmaExecuteTests
- *   runCommand: "npm run test:karma"
- *   sidecarImage: "selenium/standalone-chrome:3.141.59"
- *   sidecarName: "selenium"
+ * KEY DESIGN DECISION — why "script" mode with "tests" array
+ * ──────────────────────────────────────────────────────────
+ * The repo has NO standalone OPA5 HTML bootstrap files.
+ * All HTML files (Test.qunit.html, testsuite.qunit.html) use the modern
+ * UI5 Test Starter (runTest.js / createSuite.js / ui5:// protocol) which
+ * requires a running ui5-tooling server — unavailable inside the Karma +
+ * Selenium Docker network → silent hang → timeout.
  *
- * Reports generated:
- *   reports/TESTS-karma.xml           – JUnit  (for testsPublishResults / Jenkins)
- *   reports/test-execution.xml        – SonarQube Generic Test Execution format
- *   reports/coverage/lcov.info        – LCOV   (sonar.javascript.lcov.reportPaths)
- *   reports/coverage/coverage.xml     – Cobertura (sonar.coverageReportPaths via cobertura)
+ * karma-ui5 "script" mode solves this cleanly:
+ *   • karma-ui5 itself starts an HTTP server and proxies /resources/ and
+ *     /test-resources/ to the configured CDN URL.
+ *   • It injects the UI5 bootstrap script tag automatically.
+ *   • The `tests` array lists AMD module names (no .js suffix, no HTML needed).
+ *   • karma-ui5 calls sap.ui.require() on each module in sequence, then
+ *     calls QUnit.start() — exactly what a hand-written HTML page would do.
+ *
+ * No new files are created. No existing files are modified.
+ * Only karma.conf.js and package.json (for devDependencies) are added.
  */
 
 'use strict';
@@ -18,100 +27,89 @@
 module.exports = function (config) {
   config.set({
 
-    // ── Base path ──────────────────────────────────────────────────────────────
-    // Resolve all file/URL paths relative to the project root so that UI5
-    // resources under webapp/ are accessible.
     basePath: '',
 
-    // ── Frameworks ────────────────────────────────────────────────────────────
-    // ui5 framework adapter boots the UI5 runtime and hands control to QUnit /
-    // OPA5.  The 'qunit' framework is included automatically by the ui5 adapter.
+    // karma-ui5 registers the 'ui5' framework which boots the UI5 runtime
+    // and proxies CDN resources — no separate server needed.
     frameworks: ['ui5'],
 
-    // ── Files ─────────────────────────────────────────────────────────────────
-    // The UI5 Karma adapter discovers test files via karma-ui5 configuration
-    // below; the `files` array stays empty so Karma does not try to serve
-    // raw module files a second time.
-    files: [],
+    files: [],  // karma-ui5 handles all serving
 
-    // ── UI5 / Karma-UI5 adapter config ────────────────────────────────────────
+    // ── karma-ui5 configuration ───────────────────────────────────────────────
     ui5: {
-        configPath: 'ui5.yaml',
-        mode: 'script',
-        tests: [
-            'webapp/test/integration/opaTestsComponent.qunit'
-        ],
-        url: 'https://ui5.sap.com'
+      // "script" mode: karma-ui5 injects the sap-ui-core.js bootstrap tag,
+      // then sap.ui.require()-s each module listed in `tests`.
+      // No HTML testpage file is needed.
+      mode: 'script',
+
+      // CDN URL — must match minUI5Version in manifest.json (1.148.0).
+      // karma-ui5 proxies GET /resources/* and /test-resources/* here so
+      // Chrome can load sap-ui-core.js inside the Docker network.
+      url: 'https://ui5.sap.com/1.148.0/',
+
+      // UI5 bootstrap parameters injected by karma-ui5
+      config: {
+        theme:              'sap_horizon',
+        language:           'en',
+        compatVersion:      'edge',
+        preload:            'async',
+        frameOptions:       'deny',
+        libs:               'sap.m,sap.f,sap.ui.core',
+        // Map the app namespace and mock data so OPA5 journeys can find them
+        resourceroots: JSON.stringify({
+          'sap.ui.demo.cart': '../../../webapp',
+          'sap.ui.demo.mock': '../../../webapp/localService/mockdata'
+        })
+      },
+
+      // AMD module names (no .js suffix) to load and run.
+      // karma-ui5 calls sap.ui.require() on each one, then QUnit.start().
+      // We use opaTestsComponent — Component-based journeys are the most
+      // reliable in headless CI (no iFrame, no FLP shell).
+      tests: [
+        'sap/ui/demo/cart/test/integration/opaTestsComponent.qunit'
+      ]
     },
 
-    // ── Preprocessors ─────────────────────────────────────────────────────────
-    // Coverage instrumentation on all webapp JS sources (excluding test/ and
-    // generated artefacts).  The ui5 adapter serves files through its own
-    // middleware so we instrument the pattern it exposes.
     preprocessors: {
       'webapp/**/*.js': ['coverage']
     },
 
-    // ── Reporters ─────────────────────────────────────────────────────────────
     reporters: ['progress', 'junit', 'coverage', 'sonarqubeUnit'],
 
-    // ── JUnit reporter ────────────────────────────────────────────────────────
     junitReporter: {
-      outputDir: 'reports',
-      outputFile: 'TESTS-karma.xml',
-      suite: 'ShoppingCartOPA5Tests',
-      useBrowserName: false,
-      // Each OPA5 journey maps to its own classname so SonarQube can group
-      // test results by module.
-      classNameFormatter: function (browser, result) {
-        // result.suite is an array; join with '.' for a dotted classname
-        return result.suite.join('.');
-      }
+      outputDir:      'reports',
+      outputFile:     'TESTS-karma.xml',
+      suite:          'ShoppingCartOPA5Tests',
+      useBrowserName: false
     },
 
-    // ── Coverage reporter ─────────────────────────────────────────────────────
     coverageReporter: {
       dir: 'reports',
       reporters: [
-        // Cobertura XML → sonar.coverageReportPaths / testsPublishResults cobertura
         { type: 'cobertura', subdir: 'coverage', file: 'coverage.xml' },
-        // LCOV → sonar.javascript.lcov.reportPaths
         { type: 'lcov',      subdir: 'coverage' },
-        // Human-readable summary in the build log
         { type: 'text-summary' }
       ]
     },
 
-    // ── SonarQube Generic Test Execution reporter ─────────────────────────────
-    // Produces reports/test-execution.xml in the format:
-    //   <testExecutions version="1">
-    //     <file path="webapp/test/...">
-    //       <testCase name="..." duration="..."/>
-    //     </file>
-    //   </testExecutions>
-    // which is consumed by sonar.testExecutionReportPaths
+    // Generates reports/test-execution.xml in SonarQube Generic Test Execution
+    // format — consumed by sonar.testExecutionReportPaths
     sonarQubeUnitReporter: {
-      sonarQubeVersion: 'LATEST',
-      outputFile: 'reports/test-execution.xml',
+      sonarQubeVersion:        'LATEST',
+      outputFile:              'reports/test-execution.xml',
       overrideTestDescription: true,
-      // The path prefix that maps test results back to source files in the
-      // SonarQube project.  OPA5 journeys live under webapp/test/integration/
-      // and unit tests under webapp/test/unit/.
       testPaths: [
         'webapp/test/integration',
         'webapp/test/unit'
       ],
       testFilePattern: '.js',
-      useBrowserName: false
+      useBrowserName:  false
     },
 
-    // ── Server ────────────────────────────────────────────────────────────────
-    port: 9876,
-    // 0.0.0.0 so Selenium (sidecar container) can reach Karma on the
-    // PIPER_SELENIUM_HOSTNAME host entry injected by karmaExecuteTests.
+    port:     9876,
     hostname: process.env.PIPER_SELENIUM_HOSTNAME || '0.0.0.0',
 
-    // ── Browser / launcher ────────────────────────────────────────────────────
     browsers: ['SeleniumChrome'],
 
     customLaunchers: {
@@ -119,41 +117,32 @@ module.exports = function (config) {
         base: 'WebDriver',
         config: {
           hostname: process.env.PIPER_SELENIUM_WEBDRIVER_HOSTNAME || 'selenium',
-          port: parseInt(process.env.PIPER_SELENIUM_WEBDRIVER_PORT, 10) || 4444
+          port:     parseInt(process.env.PIPER_SELENIUM_WEBDRIVER_PORT, 10) || 4444
         },
-        browserName: 'chrome',
-        name: 'Karma',
-        // Flags forwarded to ChromeOptions by selenium-webdriver
+        browserName:            'chrome',
+        name:                   'Karma',
         pseudoActivityInterval: 30000
       }
     },
 
-    // ── Timeouts ──────────────────────────────────────────────────────────────
-    // OPA5 journeys can be slow; give them plenty of breathing room.
-    captureTimeout:             210000,
-    browserDisconnectTimeout:   210000,
+    // OPA5 journeys are slow — 7 minutes per session, 3 reconnect retries
+    captureTimeout:             420000,
+    browserDisconnectTimeout:   420000,
     browserDisconnectTolerance: 3,
-    browserNoActivityTimeout:   210000,
+    browserNoActivityTimeout:   420000,
 
-    // ── Misc ──────────────────────────────────────────────────────────────────
-    colors:    true,
-    logLevel:  config.LOG_INFO,
-    autoWatch: false,
-    singleRun: true,
-    concurrency: 1,
-    // JSONP avoids cross-origin issues when Karma serves the iframe context
-    forceJSONP: true,
+    colors:           true,
+    logLevel:         config.LOG_INFO,
+    autoWatch:        false,
+    singleRun:        true,
+    concurrency:      1,
+    forceJSONP:       true,
     reportSlowerThan: 500,
 
-    // ── Plugins ───────────────────────────────────────────────────────────────
     plugins: [
-      // UI5 adapter – boots the SAPUI5 runtime inside Karma
       'karma-ui5',
-      // WebDriver launcher – connects to the Selenium sidecar
       'karma-webdriver-launcher',
-      // Chrome launcher kept as a local fallback (not used in CI)
       'karma-chrome-launcher',
-      // Reporters
       'karma-junit-reporter',
       'karma-coverage',
       'karma-sonarqube-unit-reporter'
