@@ -57,8 +57,8 @@ module.exports = function (config) {
         libs:               'sap.m,sap.f,sap.ui.core',
         // Map the app namespace and mock data so OPA5 journeys can find them
         resourceroots: JSON.stringify({
-          'sap.ui.demo.cart': '../../../webapp',
-          'sap.ui.demo.mock': '../../../webapp/localService/mockdata'
+            'sap.ui.demo.cart': '/base/webapp',
+            'sap.ui.demo.cart.test': '/base/webapp/test'
         })
       },
 
@@ -68,7 +68,7 @@ module.exports = function (config) {
       // reliable in headless CI (no iFrame, no FLP shell).
       tests: [
         'sap/ui/demo/cart/test/integration/opaTestsComponent.qunit'
-      ]
+    ]
     },
 
     preprocessors: {
@@ -136,7 +136,6 @@ module.exports = function (config) {
     autoWatch:        false,
     singleRun:        true,
     concurrency:      1,
-    forceJSONP:       true,
     reportSlowerThan: 500,
 
     plugins: [
