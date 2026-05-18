@@ -39,7 +39,7 @@ module.exports = function (config) {
         configPath: 'ui5.yaml',
         mode: 'script',
         tests: [
-            'webapp/test/integration/opaTests'
+            'webapp/test/integration/opaTestsComponent.qunit'
         ],
         url: 'https://ui5.sap.com'
     },
