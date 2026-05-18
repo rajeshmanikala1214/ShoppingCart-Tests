@@ -36,19 +36,12 @@ module.exports = function (config) {
 
     // ── UI5 / Karma-UI5 adapter config ────────────────────────────────────────
     ui5: {
-      // Point to the project's own ui5.yaml so the middleware stack
-      // (fiori-tools-proxy → ui5.sap.com CDN) is reused exactly as in
-      // "npm run int-test".
-      configPath: 'ui5.yaml',
-
-      mode: 'html',
-
-      // The HTML entry point that bootstraps the full OPA5 test suite
-      // (same file opened by "npm run int-test").
-      testpage: 'webapp/test/integration/opaTests.qunit.html',
-
-      // Serve UI5 runtime from CDN (mirrors what fiori-tools-proxy does).
-       url: 'https://ui5.sap.com'
+        configPath: 'ui5.yaml',
+        mode: 'script',
+        tests: [
+            'webapp/test/integration/opaTests'
+        ],
+        url: 'https://ui5.sap.com'
     },
 
     // ── Preprocessors ─────────────────────────────────────────────────────────
