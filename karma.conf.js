@@ -36,11 +36,11 @@ module.exports = function (config) {
 
     // ── UI5 / Karma-UI5 adapter config ────────────────────────────────────────
     ui5: {
-        configPath: 'ui5.yaml',
-        mode: 'html',
-        testpage: 'webapp/test/integration/testsuite.qunit.html',
-        url: 'https://ui5.sap.com'
-    },
+  configPath: 'ui5.yaml',
+  mode: 'html',
+  testpage: 'webapp/test/testsuite.qunit.html',
+  url: 'https://ui5.sap.com'
+},
 
     // ── Preprocessors ─────────────────────────────────────────────────────────
     // Coverage instrumentation on all webapp JS sources (excluding test/ and
