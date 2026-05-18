@@ -126,6 +126,15 @@ module.exports = function (config) {
       }
     },
 
+    client: {
+    clearContext: false
+    },
+
+    browserConsoleLogOptions: {
+            level: 'debug',
+            format: '%b %T: %m',
+             terminal: true
+    },
     // ── Timeouts ──────────────────────────────────────────────────────────────
     // OPA5 journeys can be slow; give them plenty of breathing room.
     captureTimeout:             210000,
