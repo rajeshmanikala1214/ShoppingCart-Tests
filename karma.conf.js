@@ -12,7 +12,7 @@ module.exports = function (config) {
     basePath: '',
 
     // Frameworks to load. 'ui5' injects qunit automatically
-    frameworks: ['ui5'],
+    frameworks: ['ui5', 'qunit'],
 
     files: [],
 
@@ -117,6 +117,7 @@ module.exports = function (config) {
 
     plugins: [
       'karma-ui5',
+      'karma-qunit',
       'karma-webdriver-launcher',
       'karma-chrome-launcher',
       'karma-junit-reporter',
