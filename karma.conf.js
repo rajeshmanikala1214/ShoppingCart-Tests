@@ -27,8 +27,7 @@ module.exports = function (config) {
         }
       },
       tests: [
-        'sap/ui/demo/cart/test/testsuite.qunit.js'
-      ]
+       'sap/ui/demo/cart/test/testsuite.qunit'      ]
     },
 
     // CRITICAL FIX: Exclude the webapp/test directory from coverage instrumentation
