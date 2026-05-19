@@ -27,7 +27,7 @@ module.exports = function (config) {
         }
       },
       tests: [
-        'sap/ui/demo/cart/test/Test.qunit.html'
+        'sap/ui/demo/cart/test/testsuite.qunit.js'
       ]
     },
 
