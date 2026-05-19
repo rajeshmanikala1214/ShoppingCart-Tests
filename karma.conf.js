@@ -39,7 +39,9 @@ module.exports = function (config) {
   configPath: 'ui5.yaml',
   mode: 'html',
   testpage: 'webapp/test/testsuite.qunit.html',
-  url: 'https://ui5.sap.com/'
+  upstream: {
+        resources: 'https://ui5.sap.com/resources/'
+  }
 },
 
     // ── Preprocessors ─────────────────────────────────────────────────────────
