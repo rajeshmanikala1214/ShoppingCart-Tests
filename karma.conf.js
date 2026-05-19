@@ -27,8 +27,7 @@ module.exports = function (config) {
         }
       },
       tests: [
-        'sap/ui/demo/cart/test/unit/AllTests',
-        'sap/ui/demo/cart/test/integration/AllJourneys'
+        'sap/ui/demo/cart/test/Test.qunit.html'
       ]
     },
 
