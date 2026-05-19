@@ -12,7 +12,7 @@ module.exports = function (config) {
     basePath: '',
 
     // Frameworks to load. 'ui5' injects qunit automatically
-    frameworks: ['ui5', 'qunit'],
+    frameworks: ['ui5'],
 
     files: [
       { pattern: 'webapp/test/**/*.js', included: false, served: true, watched: false }
