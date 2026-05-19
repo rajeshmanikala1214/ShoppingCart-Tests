@@ -20,16 +20,15 @@ module.exports = function (config) {
 
     // UI5 framework configuration optimized for Pipeline Execution
     ui5: {
-      url: 'https://ui5.sap.com',
-      mode: 'script', // 'script' mode is vastly more stable in Docker environments
-      config: {
-        async: true,
-        resourceRoots: {
-          'sap.ui.demo.cart': '/base/webapp' // Replace with your exact Component namespace if different
-        }
-      },
-      tests: [
-       'sap/ui/demo/cart/test/testsuite.qunit'      ]
+      url: 'https://ui5.sap.com/1.120.23/',
+      mode: 'html', // 'script' mode is vastly more stable in Docker environments
+      // config: {
+      //   async: true,
+      //   resourceRoots: {
+      //     'sap.ui.demo.cart': '/base/webapp' // Replace with your exact Component namespace if different
+      //   }
+      // },
+      testpage: 'webapp/test/testsuite.qunit.html',
     },
 
     // CRITICAL FIX: Exclude the webapp/test directory from coverage instrumentation
