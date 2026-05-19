@@ -39,7 +39,7 @@ module.exports = function (config) {
   configPath: 'ui5.yaml',
   mode: 'html',
   testpage: 'webapp/test/testsuite.qunit.html',
-  url: 'https://ui5.sap.com'
+  url: 'https://ui5.sap.com/'
 },
 
     // ── Preprocessors ─────────────────────────────────────────────────────────
@@ -103,40 +103,29 @@ module.exports = function (config) {
       useBrowserName: false
     },
 
-    // ── Server ────────────────────────────────────────────────────────────────
     port: 9876,
-    // 0.0.0.0 so Selenium (sidecar container) can reach Karma on the
-    // PIPER_SELENIUM_HOSTNAME host entry injected by karmaExecuteTests.
     hostname: process.env.PIPER_SELENIUM_HOSTNAME || '0.0.0.0',
 
-    // ── Browser / launcher ────────────────────────────────────────────────────
-browsers: ['SeleniumChrome'],
+    colors: true,
+    logLevel: config.LOG_INFO,
+    autoWatch: false,
+    singleRun: true,
 
-customLaunchers: {
-  SeleniumChrome: {
-    base: 'WebDriver',
-    config: {
-      hostname: process.env.PIPER_SELENIUM_WEBDRIVER_HOSTNAME || 'selenium',
-      port: parseInt(process.env.PIPER_SELENIUM_WEBDRIVER_PORT, 10) || 4444
-    },
-    browserName: 'chrome',
-    name: 'Karma',
-    pseudoActivityInterval: 30000,
-    
-    // ── ADD THE FOLLOWING W3C CAPABILITIES FOR SELENIUM 4+ ──
-    capabilities: {
-      browserName: 'chrome',
-      'goog:chromeOptions': {
-        args: [
-          '--headless',
-          '--no-sandbox',
-          '--disable-gpu',
-          '--disable-dev-shm-usage'
-        ]
+    browsers: ['SeleniumChrome'],
+
+    customLaunchers: {
+      SeleniumChrome: {
+        base: 'WebDriver',
+        config: {
+          hostname: process.env.PIPER_SELENIUM_WEBDRIVER_HOSTNAME || 'selenium',
+          port: parseInt(process.env.PIPER_SELENIUM_WEBDRIVER_PORT) || 4444
+        },
+        browserName: 'chrome',
+        name: 'Karma',
+        flags: ['--no-sandbox', '--disable-dev-shm-usage'],
+        pseudoActivityInterval: 30000
       }
-    }
-  }
-},
+    },
 
     client: {
   captureConsole: true,
@@ -156,10 +145,6 @@ customLaunchers: {
     browserNoActivityTimeout:   210000,
 
     // ── Misc ──────────────────────────────────────────────────────────────────
-    colors:    true,
-    logLevel:  config.LOG_INFO,
-    autoWatch: false,
-    singleRun: true,
     concurrency: 1,
     // JSONP avoids cross-origin issues when Karma serves the iframe context
     forceJSONP: true,
