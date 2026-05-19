@@ -110,21 +110,33 @@ module.exports = function (config) {
     hostname: process.env.PIPER_SELENIUM_HOSTNAME || '0.0.0.0',
 
     // ── Browser / launcher ────────────────────────────────────────────────────
-    browsers: ['SeleniumChrome'],
+browsers: ['SeleniumChrome'],
 
-    customLaunchers: {
-      SeleniumChrome: {
-        base: 'WebDriver',
-        config: {
-          hostname: process.env.PIPER_SELENIUM_WEBDRIVER_HOSTNAME || 'selenium',
-          port: parseInt(process.env.PIPER_SELENIUM_WEBDRIVER_PORT, 10) || 4444
-        },
-        browserName: 'chrome',
-        name: 'Karma',
-        // Flags forwarded to ChromeOptions by selenium-webdriver
-        pseudoActivityInterval: 30000
-      }
+customLaunchers: {
+  SeleniumChrome: {
+    base: 'WebDriver',
+    config: {
+      hostname: process.env.PIPER_SELENIUM_WEBDRIVER_HOSTNAME || 'selenium',
+      port: parseInt(process.env.PIPER_SELENIUM_WEBDRIVER_PORT, 10) || 4444
     },
+    browserName: 'chrome',
+    name: 'Karma',
+    pseudoActivityInterval: 30000,
+    
+    // ── ADD THE FOLLOWING W3C CAPABILITIES FOR SELENIUM 4+ ──
+    capabilities: {
+      browserName: 'chrome',
+      'goog:chromeOptions': {
+        args: [
+          '--headless',
+          '--no-sandbox',
+          '--disable-gpu',
+          '--disable-dev-shm-usage'
+        ]
+      }
+    }
+  }
+},
 
     client: {
   captureConsole: true,
