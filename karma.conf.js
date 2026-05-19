@@ -22,12 +22,12 @@ module.exports = function (config) {
     ui5: {
       url: 'https://ui5.sap.com/1.120.23/',
       mode: 'html', // 'script' mode is vastly more stable in Docker environments
-      // config: {
-      //   async: true,
-      //   resourceRoots: {
-      //     'sap.ui.demo.cart': '/base/webapp' // Replace with your exact Component namespace if different
-      //   }
-      // },
+      config: {
+        async: true,
+        resourceRoots: {
+          'sap.ui.demo.cart': './webapp' // Replace with your exact Component namespace if different
+        }
+      },
       testpage: 'webapp/test/testsuite.qunit.html',
     },
 
