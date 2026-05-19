@@ -14,7 +14,9 @@ module.exports = function (config) {
     // Frameworks to load. 'ui5' injects qunit automatically
     frameworks: ['ui5', 'qunit'],
 
-    files: [],
+    files: [
+      { pattern: 'webapp/test/**/*.js', included: false, served: true, watched: false }
+    ],
 
     // UI5 framework configuration optimized for Pipeline Execution
     ui5: {
