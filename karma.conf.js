@@ -18,6 +18,10 @@ module.exports = function (config) {
     //   { pattern: 'webapp/test/**/*.js', included: false, served: true, watched: false }
     // ],
 
+    proxies: {
+      '/resources/': '/base/webapp/resources/',
+      '/test-resources/sap/ui/demo/cart/': '/base/webapp/test/'
+    },
     // UI5 framework configuration optimized for Pipeline Execution
     ui5: {
       url: 'https://ui5.sap.com/1.120.23/',
