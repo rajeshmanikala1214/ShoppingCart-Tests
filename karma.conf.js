@@ -4,40 +4,43 @@ module.exports = function (config) {
   config.set({
 
     basePath:   '',
-    frameworks: ['ui5', 'qunit', 'browserify', 'mocha'],
+    // Cleaned up: Removed mocha and browserify to prevent context lockups
+    frameworks: ['ui5', 'qunit'],
 
-    // Ensure all webapp assets are served properly under the /base/ namespace
-    // files: [
-    //   { pattern: 'webapp/**', served: true, included: false, watched: false }
-    // ],
+    // FIX 1: Explicitly include all assets so Karma mounts them into the web worker context
+    files: [
+      { pattern: 'webapp/**/*.js', served: true, included: false, watched: false },
+      { pattern: 'webapp/**/*.xml', served: true, included: false, watched: false },
+      { pattern: 'webapp/**/*.json', served: true, included: false, watched: false },
+      { pattern: 'webapp/**/*.properties', served: true, included: false, watched: false }
+    ],
 
     ui5: {
-      // Use the absolute, standard OpenUI5 public endpoint
+      // Use the absolute public endpoint
       url: 'https://sapui5.hana.ondemand.com',
 
-      // Use script mode to prevent background XMLHttpRequest file-parsing failures
       mode: 'script',
 
       config: {
         async:      true,
         theme:      'sap_horizon',
         language:   'en',
-       resourceRoots: {
-            'sap.ui.demo.cart': './webapp',
-            'sap.ui.demo.cart.test': './webapp/test'
-       }
+        // FIX 2: Map the namespace to Karma's /base/ webserver directory structure
+        resourceRoots: {
+          'sap.ui.demo.cart': '/base/webapp',
+          'sap.ui.demo.cart.test': '/base/webapp/test'
+        }
       },
 
-      // Use your aggregator test modules directly
       tests: [
         'sap/ui/demo/cart/test/unit/AllTests',
         'sap/ui/demo/cart/test/integration/AllJourneys'
       ]
     },
 
-    // Instrument only production sources — exclude test files
     preprocessors: {
-      'webapp/!(test)/**/*.js': ['coverage']
+      'webapp/model/**/*.js': ['coverage'],
+      'webapp/controller/**/*.js': ['coverage']
     },
 
     reporters: ['progress', 'junit', 'coverage', 'sonarqubeUnit'],
@@ -102,13 +105,11 @@ module.exports = function (config) {
     forceJSONP:          false,
     reportSlowerThan:    500,
 
-     plugins: [
+    plugins: [
       'karma-ui5',
       'karma-qunit',
-      'karma-mocha',
       'karma-chrome-launcher',
       'karma-junit-reporter',
-      'karma-browserify',
       'karma-coverage',
       'karma-webdriver-launcher',
       'karma-sonarqube-unit-reporter'
