@@ -21,7 +21,7 @@ module.exports = function (config) {
       // applies config below, then sap.ui.require()s each test module.
       // QUnit.start() is called automatically after all modules load.
       // No HTML file needed. No ui5:// protocol. No Test Starter.
-      mode: 'script',
+      mode: 'html',
  
       config: {
         async:      true,
@@ -35,15 +35,16 @@ module.exports = function (config) {
         }
       },
  
+      testpage: 'webapp/test/testsuite.qunit.html',
       // AMD module names (no .js suffix).
       // karma-ui5 calls sap.ui.require() on each, then QUnit.start().
       // These are the new aggregator files you created:
       //   webapp/test/unit/AllTests.js        → all unit test modules
       //   webapp/test/integration/AllJourneys.js → all OPA5 journeys
-      tests: [
-        'sap/ui/demo/cart/test/unit/AllTests',
-        'sap/ui/demo/cart/test/integration/AllJourneys'
-      ]
+      // tests: [
+      //   'sap/ui/demo/cart/test/unit/AllTests',
+      //   'sap/ui/demo/cart/test/integration/AllJourneys'
+      // ]
     },
  
     // Instrument only production sources — exclude test files
