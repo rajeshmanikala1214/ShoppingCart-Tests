@@ -8,23 +8,25 @@ module.exports = function (config) {
  
     // karma-ui5 in script mode serves all webapp files automatically.
     // The explicit files entry makes webapp/** available at /base/webapp/
-    files: [
-      { pattern: 'webapp/**', served: true, included: false, watched: false }
-    ],
+    // files: [
+    //   { pattern: 'webapp/**', served: true, included: false, watched: false }
+    // ],
  
     ui5: {
       // UI5 1.120.23 LTS — compatible with Chrome 99 (Selenium 4.1.2 sidecar).
       // QUnit 2.x is bundled. Does NOT use Promise.withResolvers().
-      url: "https://sapui5.hana.ondemand.com",
+      url: 'https://ui5.sap.com/1.120.23/',
  
       // script mode: karma-ui5 injects the sap-ui-core.js bootstrap,
       // applies config below, then sap.ui.require()s each test module.
       // QUnit.start() is called automatically after all modules load.
       // No HTML file needed. No ui5:// protocol. No Test Starter.
-      mode: "script",
+      mode: 'html',
  
       config: {
         async:      true,
+        theme:      'sap_horizon',
+        language:   'en',
         // Map the app namespace so OPA5 journeys can find Component.js,
         // views, controllers, and mock data via sap.ui.require()
         resourceRoots: {
@@ -33,18 +35,21 @@ module.exports = function (config) {
         }
       },
  
-      //testpage: 'webapp/test/testsuite.qunit.html',
+      testpage: 'webapp/test/testsuite.qunit.html',
       // AMD module names (no .js suffix).
       // karma-ui5 calls sap.ui.require() on each, then QUnit.start().
       // These are the new aggregator files you created:
       //   webapp/test/unit/AllTests.js        → all unit test modules
       //   webapp/test/integration/AllJourneys.js → all OPA5 journeys
-      tests: [
-        'sap/ui/demo/cart/test/unit/AllTests',
-        'sap/ui/demo/cart/test/integration/AllJourneys'
-      ]
+      // tests: [
+      //   'sap/ui/demo/cart/test/unit/AllTests',
+      //   'sap/ui/demo/cart/test/integration/AllJourneys'
+      // ]
     },
  
+    proxies: {
+      '/test-resources/sap/ui/demo/cart/': '/base/webapp/test/'
+    },
     // Instrument only production sources — exclude test files
     preprocessors: {
       'webapp/!(test)/**/*.js': ['coverage']
