@@ -13,7 +13,7 @@ module.exports = function (config) {
 
     ui5: {
       // Use the absolute, standard OpenUI5 public endpoint
-      url: 'https://sapui5.hana.ondemand.com',
+     url: 'https://ui5.sap.com/1.120.23/',
 
       // Use script mode to prevent background XMLHttpRequest file-parsing failures
       mode: 'script',
@@ -22,10 +22,10 @@ module.exports = function (config) {
         async:      true,
         theme:      'sap_horizon',
         language:   'en',
-       resourceRoots: {
+        resourceRoots: {
             'sap.ui.demo.cart': './webapp',
             'sap.ui.demo.cart.test': './webapp/test'
-       }
+        }
       },
 
       // Use your aggregator test modules directly
