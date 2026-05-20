@@ -5,13 +5,15 @@
   "keywords": ["ui5", "openui5", "sapui5"],
   "main": "webapp/index.html",
   "dependencies": {},
-  "devDependencies": {
-  "@ui5/cli": "^4.0.33",
+ "devDependencies": {
+    "@ui5/cli": "^4.0.33",
     "@sap/ux-ui5-tooling": "1",
     "@sap-ux/eslint-plugin-fiori-tools": "^10.0.0",
     "eslint": "^9.39.4",
+    "karma": "^4.4.1",
     "mocha": "^11.7.5",
     "ui5-task-zipper": "^3.4.x",
+    "karma-qunit": "^4.2.1",
     "rimraf": "^5.0.5",
     "karma-browserify": "^8.1.0",
     "karma-mocha": "^2.0.1",
@@ -21,7 +23,8 @@
     "karma-chrome-launcher": "^3.2.0",
     "karma-junit-reporter": "^2.0.1",
     "karma-coverage": "^2.2.1",
-    "karma-sonarqube-unit-reporter": "^0.0.23"
+    "karma-sonarqube-unit-reporter": "^0.0.23",
+    "qunit": "^2.25.0"
   },
   "scripts": {
     "start1": "fiori run --open \"index.html\"",
