@@ -23,14 +23,13 @@ module.exports = function (config) {
         theme:      'sap_horizon',
         language:   'en',
         resourceRoots: {
-            'sap.ui.demo.cart': './webapp',
-            'sap.ui.demo.cart.test': './webapp/test'
+            'sap.ui.demo.cart': './webapp'
         }
       },
 
       // Use your aggregator test modules directly
       tests: [
-       'sap/ui/demo/cart/test/testsuite.qunit'
+       'test/testsuite.qunit'
       ]
     },
 
