@@ -16,7 +16,7 @@ module.exports = function (config) {
 
     ui5: {
       // Use the absolute, standard OpenUI5 public endpoint
-      url: 'https://sapui5.hana.ondemand.com',
+     // url: 'https://sapui5.hana.ondemand.com',
 
       // Use script mode to prevent background XMLHttpRequest file-parsing failures
       mode: 'script',
@@ -26,8 +26,9 @@ module.exports = function (config) {
         theme:      'sap_horizon',
         language:   'en',
         // FIX 1: Map the exact namespace resource root that your app and journeys expect
-        resourceRoots: {
-          'sap.ui.demo.cart': '/base/webapp'
+       resourceRoots: {
+          'sap.ui.demo.cart': '/base/webapp',
+          'sap.ui.demo.mock': '/base/webapp/localService/mockdata'
         }
       },
 
