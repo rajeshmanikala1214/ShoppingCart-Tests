@@ -22,9 +22,10 @@ module.exports = function (config) {
         async:      true,
         theme:      'sap_horizon',
         language:   'en',
-        resourceRoots: {
-        'sap.ui.demo.cart': './webapp'
-        }
+       resourceRoots: {
+            'sap.ui.demo.cart': './webapp',
+            'sap.ui.demo.cart.test': './webapp/test'
+       }
       },
 
       // Use your aggregator test modules directly
