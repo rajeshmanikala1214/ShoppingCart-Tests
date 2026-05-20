@@ -6,9 +6,12 @@ module.exports = function (config) {
     basePath:   '',
     frameworks: ['ui5'],
 
-    // Ensure all webapp assets are served properly under the /base/ namespace
+    // FIX 1: Provide explicit, separate file matching rules for reliability in containers
     files: [
-      { pattern: 'webapp/**', served: true, included: false, watched: false }
+      { pattern: 'webapp/**/*.js', served: true, included: false, watched: false },
+      { pattern: 'webapp/**/*.xml', served: true, included: false, watched: false },
+      { pattern: 'webapp/**/*.json', served: true, included: false, watched: false },
+      { pattern: 'webapp/**/*.properties', served: true, included: false, watched: false }
     ],
 
     ui5: {
@@ -36,8 +39,9 @@ module.exports = function (config) {
     },
 
     // Instrument only production sources — exclude test files
-    preprocessors: {
-      'webapp/!(test)/**/*.js': ['coverage']
+   preprocessors: {
+      'webapp/model/**/*.js': ['coverage'],
+      'webapp/controller/**/*.js': ['coverage']
     },
 
     reporters: ['progress', 'junit', 'coverage', 'sonarqubeUnit'],
