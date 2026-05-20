@@ -8,9 +8,9 @@ module.exports = function (config) {
  
     // karma-ui5 in script mode serves all webapp files automatically.
     // The explicit files entry makes webapp/** available at /base/webapp/
-    files: [
-      { pattern: 'webapp/**', served: true, included: false, watched: false }
-    ],
+    // files: [
+    //   { pattern: 'webapp/**', served: true, included: false, watched: false }
+    // ],
  
     ui5: {
       // UI5 1.120.23 LTS — compatible with Chrome 99 (Selenium 4.1.2 sidecar).
