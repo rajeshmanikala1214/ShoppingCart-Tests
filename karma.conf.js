@@ -30,8 +30,8 @@ module.exports = function (config) {
 
       // Use your aggregator test modules directly
       tests: [
-       'sap.ui.demo.cart.test.unit.AllTests',
-       'sap.ui.demo.cart.test.integration.AllJourneys'
+       'sap/ui/demo/cart/test/unit/AllTests',
+       'sap/ui/demo/cart/test/integration/AllJourneys'
       ]
     },
 
