@@ -4,7 +4,7 @@ module.exports = function (config) {
   config.set({
 
     basePath:   '',
-    frameworks: ['ui5'],
+    frameworks: ['ui5', 'qunit', 'browserify', 'mocha'],
 
     // Ensure all webapp assets are served properly under the /base/ namespace
     // files: [
@@ -102,13 +102,15 @@ module.exports = function (config) {
     forceJSONP:          false,
     reportSlowerThan:    500,
 
-    plugins: [
+     plugins: [
       'karma-ui5',
       'karma-qunit',
-      'karma-webdriver-launcher',
+      'karma-mocha',
       'karma-chrome-launcher',
       'karma-junit-reporter',
+      'karma-browserify',
       'karma-coverage',
+      'karma-webdriver-launcher',
       'karma-sonarqube-unit-reporter'
     ]
   });
