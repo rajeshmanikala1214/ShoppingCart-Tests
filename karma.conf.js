@@ -29,10 +29,10 @@ module.exports = function (config) {
         language:   'en',
         // Map the app namespace so OPA5 journeys can find Component.js,
         // views, controllers, and mock data via sap.ui.require()
-        resourceroots: JSON.stringify({
-          'sap.ui.demo.cart':  '/base/webapp',
-          'sap.ui.demo.mock':  '/base/webapp/localService/mockdata'
-        })
+        resourceRoots: {
+          'sap.ui.demo.cart': '/base/webapp',
+          'sap.ui.demo.mock': '/base/webapp/localService/mockdata'
+        }
       },
  
       // AMD module names (no .js suffix).
