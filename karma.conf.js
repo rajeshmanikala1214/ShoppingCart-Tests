@@ -7,9 +7,14 @@ module.exports = function (config) {
     frameworks: ['ui5'],
 
     // Ensure all webapp assets are served properly under the /base/ namespace
-    // files: [
-    //   { pattern: 'webapp/**', served: true, included: false, watched: false }
-    // ],
+     files: [
+      {
+        pattern: 'webapp/test/**/*.js',
+        included: false,
+        served: true,
+        watched: false
+      }
+    ],
 
     ui5: {
       // Use the absolute, standard OpenUI5 public endpoint
