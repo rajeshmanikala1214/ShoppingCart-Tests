@@ -22,15 +22,16 @@ module.exports = function (config) {
         async:      true,
         theme:      'sap_horizon',
         language:   'en',
+        // FIX 1: Map the exact namespace resource root that your app and journeys expect
         resourceRoots: {
-          "ns.webapp": "/base/webapp"
+          'sap.ui.demo.cart': '/base/webapp'
         }
       },
 
-      // Use your aggregator test modules directly
+      // FIX 2: Point Karma's native module triggers to match that exact namespace path mapping
       tests: [
-        'ns/webapp/test/unit/AllTests',
-        'ns/webapp/test/integration/AllJourneys'
+        'sap/ui/demo/cart/test/unit/AllTests',
+        'sap/ui/demo/cart/test/integration/AllJourneys'
       ]
     },
 
