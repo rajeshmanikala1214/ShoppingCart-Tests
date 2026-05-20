@@ -6,17 +6,14 @@ module.exports = function (config) {
     basePath:   '',
     frameworks: ['ui5'],
 
-    // FIX 1: Provide explicit, separate file matching rules for reliability in containers
+    // Ensure all webapp assets are served properly under the /base/ namespace
     files: [
-      { pattern: 'webapp/**/*.js', served: true, included: false, watched: false },
-      { pattern: 'webapp/**/*.xml', served: true, included: false, watched: false },
-      { pattern: 'webapp/**/*.json', served: true, included: false, watched: false },
-      { pattern: 'webapp/**/*.properties', served: true, included: false, watched: false }
+      { pattern: 'webapp/**', served: true, included: false, watched: false }
     ],
 
     ui5: {
       // Use the absolute, standard OpenUI5 public endpoint
-     // url: 'https://sapui5.hana.ondemand.com',
+      url: 'https://sapui5.hana.ondemand.com',
 
       // Use script mode to prevent background XMLHttpRequest file-parsing failures
       mode: 'script',
@@ -25,14 +22,12 @@ module.exports = function (config) {
         async:      true,
         theme:      'sap_horizon',
         language:   'en',
-        // FIX 1: Map the exact namespace resource root that your app and journeys expect
-       resourceRoots: {
-          'sap.ui.demo.cart': '/base/webapp',
-          'sap.ui.demo.mock': '/base/webapp/localService/mockdata'
+        resourceRoots: {
+         'sap.ui.demo.cart': '/base/webapp'
         }
       },
 
-      // FIX 2: Point Karma's native module triggers to match that exact namespace path mapping
+      // Use your aggregator test modules directly
       tests: [
         'sap/ui/demo/cart/test/unit/AllTests',
         'sap/ui/demo/cart/test/integration/AllJourneys'
@@ -40,9 +35,8 @@ module.exports = function (config) {
     },
 
     // Instrument only production sources — exclude test files
-   preprocessors: {
-      'webapp/model/**/*.js': ['coverage'],
-      'webapp/controller/**/*.js': ['coverage']
+    preprocessors: {
+      'webapp/!(test)/**/*.js': ['coverage']
     },
 
     reporters: ['progress', 'junit', 'coverage', 'sonarqubeUnit'],
