@@ -52,7 +52,7 @@ module.exports = function (config) {
     },
  
     // 'sonar-generic' = inline reporter (no extra package needed)
-    reporters: ['progress', 'junit', 'coverage', 'sonar-generic'],
+    reporters: ['progress', 'junit', 'coverage', 'sonarqubeUnit'],
  
     junitReporter: {
       outputDir:      'reports',
