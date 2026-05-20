@@ -7,18 +7,13 @@ module.exports = function (config) {
     frameworks: ['ui5'],
 
     // Ensure all webapp assets are served properly under the /base/ namespace
-     files: [
-      {
-        pattern: 'webapp/test/**/*.js',
-        included: false,
-        served: true,
-        watched: false
-      }
-    ],
+    // files: [
+    //   { pattern: 'webapp/**', served: true, included: false, watched: false }
+    // ],
 
     ui5: {
       // Use the absolute, standard OpenUI5 public endpoint
-     url: 'https://ui5.sap.com/1.120.23/',
+      url: 'https://sapui5.hana.ondemand.com',
 
       // Use script mode to prevent background XMLHttpRequest file-parsing failures
       mode: 'script',
@@ -27,14 +22,16 @@ module.exports = function (config) {
         async:      true,
         theme:      'sap_horizon',
         language:   'en',
-        resourceRoots: {
-            'sap.ui.demo.cart': './webapp'
-        }
+       resourceRoots: {
+            'sap.ui.demo.cart': './webapp',
+            'sap.ui.demo.cart.test': './webapp/test'
+       }
       },
 
       // Use your aggregator test modules directly
       tests: [
-       'test/testsuite.qunit'
+        'sap/ui/demo/cart/test/unit/AllTests',
+        'sap/ui/demo/cart/test/integration/AllJourneys'
       ]
     },
 
