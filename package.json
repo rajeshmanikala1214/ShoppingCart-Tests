@@ -14,11 +14,11 @@
     "rimraf": "^5.0.5",
     "mbt": "^1.2.29",
     "karma":                    "^6.4.4",
-    "karma-ui5": "^2.4.0",
-    "karma-webdriver-launcher": "^1.0.8",
-    "karma-chrome-launcher": "^3.1.0",
+    "karma-ui5":                "^2.0.0",
+    "karma-webdriver-launcher": "^1.2.0",
+    "karma-chrome-launcher":    "^3.2.0",
     "karma-junit-reporter":     "^2.0.1",
-    "karma-coverage": "^2.0.2"
+    "karma-coverage":           "^2.2.1"
   },
   "scripts": {
     "start1": "fiori run --open \"index.html\"",
