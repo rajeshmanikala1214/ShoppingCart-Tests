@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function (config) {
   config.set({
  
@@ -122,3 +124,4 @@ module.exports = function (config) {
       'karma-sonarqube-unit-reporter'
     ]
   });
+};
