@@ -27,8 +27,8 @@ module.exports = function (config) {
         language:   'en',
         // FIX 2: Map the namespace to Karma's /base/ webserver directory structure
         resourceRoots: {
-          'sap.ui.demo.cart': '/base/webapp',
-          'sap.ui.demo.cart.test': '/base/webapp/test'
+          'sap.ui.demo.cart': './webapp',
+          'sap.ui.demo.cart.test': './webapp/test'
         }
       },
 
