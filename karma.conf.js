@@ -7,9 +7,9 @@ module.exports = function (config) {
     frameworks: ['ui5'],
 
     // Ensure all webapp assets are served properly under the /base/ namespace
-    files: [
-      { pattern: 'webapp/**', served: true, included: false, watched: false }
-    ],
+    // files: [
+    //   { pattern: 'webapp/**', served: true, included: false, watched: false }
+    // ],
 
     ui5: {
       // Use the absolute, standard OpenUI5 public endpoint
@@ -23,7 +23,7 @@ module.exports = function (config) {
         theme:      'sap_horizon',
         language:   'en',
         resourceRoots: {
-         'sap.ui.demo.cart': '/base/webapp'
+        'sap.ui.demo.cart': './webapp'
         }
       },
 
