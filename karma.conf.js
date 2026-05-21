@@ -26,19 +26,16 @@ module.exports = function (config) {
         // *** THE CRITICAL FIX ***
         // karma-ui5 serves files under /base/ — so resourceRoots
         // MUST use /base/webapp, not ./webapp or /webapp.
-        resourceroots: JSON.stringify({
+        rresourceRoots: {
+          // CRITICAL FIX: Base paths must correctly align to the virtual /base/ layout
           'sap.ui.demo.cart': '/base/webapp',
-          'sap.ui.demo.mock': '/base/webapp/localService/mockdata'
-        })
+          'sap.ui.demo.cart.test': '/base/webapp/test'
+        }
       },
 
-      // These AMD module IDs resolve via resourceroots above:
-      //   sap/ui/demo/cart/test/unit/AllTests
-      //   → /base/webapp/test/unit/AllTests.js  ✓
+      // CRITICAL FIX: Route execution directly to your actual test suite module
       tests: [
-        'sap/ui/demo/cart/test/unit/AllTests',
-        'sap/ui/demo/cart/test/integration/AllJourneys',
-        'sap/ui/demo/cart/test/integration/AllGherkinJourneys'
+        'sap/ui/demo/cart/test/testsuite.qunit'
       ]
     },
 
