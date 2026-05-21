@@ -9,7 +9,7 @@ module.exports = function (config) {
     // NO files array - karma-ui5 handles this internally
 
     ui5: {
-      url: 'https://ui5.sap.com',
+      url: 'https://sapui5.hana.ondemand.com',
       mode: 'script',
       config: {
         async: true,
