@@ -14,10 +14,10 @@ module.exports = function (config) {
 
     ui5: {
       url: 'https://ui5.sap.com',
-      // FIX 3: Switch from 'script' to 'application' mode
-      mode: 'application',
+     // FIX: Changed from 'application' to 'html' to match your version of karma-ui5
+      mode: 'html',
       
-      // FIX 4: Point directly to your physical testsuite HTML launcher file
+      // Points directly to your physical testsuite HTML launcher file
       testpage: 'webapp/test/testsuite.qunit.html',
       config: {
         async: true,
