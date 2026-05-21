@@ -3,7 +3,7 @@
 module.exports = function (config) {
   config.set({
 
-    basePath:   '',
+    basePath: '.',
     // Cleaned up: Removed mocha and browserify to prevent context lockups
     frameworks: ['ui5', 'qunit'],
 
@@ -19,8 +19,8 @@ module.exports = function (config) {
         async: true,
         resourceRoots: {
           // Point these directly to the mapped asset structure
-          'sap.ui.demo.cart': '/base/webapp',
-          'sap.ui.demo.cart.test': '/base/webapp/test'
+          'sap.ui.demo.cart': '/./webapp',
+          'sap.ui.demo.cart.test': './webapp/test'
         }
       },
       tests: [
