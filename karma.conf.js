@@ -6,19 +6,16 @@ module.exports = function (config) {
     basePath: '',
     frameworks: ['ui5', 'qunit'],
 
-    // ✅ REMOVE the files array entirely.
-    // karma-ui5 registers webapp/** internally. Your explicit entry
-    // creates a duplicate that Karma deduplicates — resulting in 0 files served.
-    // files: [],   <-- leave this out completely
+    // NO files array - karma-ui5 handles this internally
 
     ui5: {
       url: 'https://ui5.sap.com',
       mode: 'script',
       config: {
         async: true,
+        // Pin to exact version matching your manifest.json minUI5Version
+        version: '1.120.17',  // Use a stable 1.120 LTS version
         resourceRoots: {
-          // ✅ /base/ prefix is REQUIRED — Karma serves project files under /base/
-          // ✅ No trailing slash
           'sap.ui.demo.cart':      '/base/webapp',
           'sap.ui.demo.cart.test': '/base/webapp/test'
         }
@@ -69,14 +66,21 @@ module.exports = function (config) {
 
     customLaunchers: {
       SeleniumChrome: {
-        base:       'WebDriver',
+        base: 'WebDriver',
         config: {
           hostname: process.env.PIPER_SELENIUM_WEBDRIVER_HOSTNAME || 'selenium',
           port:     parseInt(process.env.PIPER_SELENIUM_WEBDRIVER_PORT, 10) || 4444
         },
         browserName:            'chrome',
         name:                   'Karma',
-        flags: ['--no-sandbox', '--disable-dev-shm-usage', '--headless'],
+        // Added --disable-web-security to prevent CORS/TLS issues loading UI5 from CDN
+        flags: [
+          '--no-sandbox',
+          '--disable-dev-shm-usage',
+          '--headless',
+          '--disable-web-security',
+          '--allow-running-insecure-content'
+        ],
         pseudoActivityInterval: 30000
       }
     },
