@@ -8,30 +8,33 @@ module.exports = function (config) {
     frameworks: ['ui5', 'qunit'],
 
     // FIX 1: Explicitly include all assets so Karma mounts them into the web worker context
-    files: [
-      { pattern: 'webapp/**/*.js', served: true, included: false, watched: false },
-      { pattern: 'webapp/**/*.xml', served: true, included: false, watched: false },
-      { pattern: 'webapp/**/*.json', served: true, included: false, watched: false },
-      { pattern: 'webapp/**/*.properties', served: true, included: false, watched: false }
+     files: [
+      { pattern: 'webapp/**', served: true, included: false, watched: false }
     ],
 
     ui5: {
       // Use the absolute public endpoint
-      url: 'https://sapui5.hana.ondemand.com',
+       url: 'https://ui5.sap.com/1.120.23/',
 
       mode: 'script',
 
       config: {
-        async:      true,
-        theme:      'sap_horizon',
-        language:   'en',
-        // FIX 2: Map the namespace to Karma's /base/ webserver directory structure
-        resourceRoots: {
-          'sap.ui.demo.cart': './webapp',
-          'sap.ui.demo.cart.test': './webapp/test'
-        }
+        async:    true,
+        theme:    'sap_horizon',
+        language: 'en',
+
+        // *** THE CRITICAL FIX ***
+        // karma-ui5 serves files under /base/ — so resourceRoots
+        // MUST use /base/webapp, not ./webapp or /webapp.
+        resourceroots: JSON.stringify({
+          'sap.ui.demo.cart': '/base/webapp',
+          'sap.ui.demo.mock': '/base/webapp/localService/mockdata'
+        })
       },
 
+      // These AMD module IDs resolve via resourceroots above:
+      //   sap/ui/demo/cart/test/unit/AllTests
+      //   → /base/webapp/test/unit/AllTests.js  ✓
       tests: [
         'sap/ui/demo/cart/test/unit/AllTests',
         'sap/ui/demo/cart/test/integration/AllJourneys'
@@ -39,8 +42,7 @@ module.exports = function (config) {
     },
 
     preprocessors: {
-      'webapp/model/**/*.js': ['coverage'],
-      'webapp/controller/**/*.js': ['coverage']
+      'webapp/!(test)/**/*.js': ['coverage']
     },
 
     reporters: ['progress', 'junit', 'coverage', 'sonarqubeUnit'],
