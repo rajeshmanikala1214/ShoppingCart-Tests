@@ -9,6 +9,7 @@ module.exports = function (config) {
 
     // FIX 2: Correct file matching pattern syntax to serve your webapp directory
     files: [
+      { pattern: 'webapp/test/testsuite.qunit.js', served: true, included: true, watched: false },
       { pattern: 'webapp/**', served: true, included: false, watched: false }
     ],
 
