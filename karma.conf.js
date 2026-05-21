@@ -17,16 +17,16 @@ module.exports = function (config) {
       mode: 'script',
       config: {
         async: true,
-        // resourceRoots: {
-        //   // Point these directly to the mapped asset structure
-        //   'sap.ui.demo.cart': '/base/webapp',
-        //   'sap.ui.demo.cart.test': '/base/webapp/test'
-        // }
+        resourceRoots: {
+          // Point these directly to the mapped asset structure
+          'sap.ui.demo.cart': './webapp',
+          'sap.ui.demo.cart.test': './webapp/test'
+        }
       },
       tests: [
         "sap/ui/demo/cart/test/unit/AllTests",
         "sap/ui/demo/cart/test/integration/AllJourneys"
-      ]
+  ]
     },
 
     preprocessors: {
