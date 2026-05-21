@@ -8,9 +8,9 @@ module.exports = function (config) {
     frameworks: ['ui5', 'qunit'],
 
     // FIX 2: Correct file matching pattern syntax to serve your webapp directory
-    // files: [
-    //   { pattern: 'webapp/**', served: true, included: false, watched: false }
-    // ],
+    files: [
+      { pattern: 'webapp/**', served: true, included: false, watched: false }
+    ],
 
     ui5: {
       url: 'https://ui5.sap.com',
@@ -19,8 +19,8 @@ module.exports = function (config) {
         async: true,
         resourceRoots: {
           // Point these directly to the mapped asset structure
-          'sap.ui.demo.cart': './webapp',
-          'sap.ui.demo.cart.test': './webapp/test'
+          'sap.ui.demo.cart': '/base/webapp',
+          'sap.ui.demo.cart.test': '/base/webapp/test'
         }
       },
       tests: [
