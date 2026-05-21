@@ -16,7 +16,8 @@ module.exports = function (config) {
         async: true,
         // Pin to exact version matching your manifest.json minUI5Version
         resourceRoots: {
-          'sap.ui.demo.cart': '/base/webapp'
+          'sap.ui.demo.cart': '/base/webapp',
+          'sap.ui.demo.cart.test': '/base/webapp/test',
         }
       },
       tests: [
