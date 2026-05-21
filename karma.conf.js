@@ -3,14 +3,13 @@
 module.exports = function (config) {
   config.set({
 
-    basePath:   '',
-    // Cleaned up: Removed mocha and browserify to prevent context lockups
+    basePath: '',
     frameworks: ['ui5', 'qunit'],
 
-    // FIX 2: Correct file matching pattern syntax to serve your webapp directory
-    files: [
-      { pattern: 'webapp/**', served: true, included: false, watched: false }
-    ],
+    // ✅ REMOVE the files array entirely.
+    // karma-ui5 registers webapp/** internally. Your explicit entry
+    // creates a duplicate that Karma deduplicates — resulting in 0 files served.
+    // files: [],   <-- leave this out completely
 
     ui5: {
       url: 'https://ui5.sap.com',
@@ -18,19 +17,20 @@ module.exports = function (config) {
       config: {
         async: true,
         resourceRoots: {
-          // Point these directly to the mapped asset structure
-          'sap.ui.demo.cart': '/base/webapp',
+          // ✅ /base/ prefix is REQUIRED — Karma serves project files under /base/
+          // ✅ No trailing slash
+          'sap.ui.demo.cart':      '/base/webapp',
           'sap.ui.demo.cart.test': '/base/webapp/test'
         }
       },
       tests: [
-        "sap/ui/demo/cart/test/unit/AllTests",
-        "sap/ui/demo/cart/test/integration/AllJourneys"
-  ]
+        'sap/ui/demo/cart/test/unit/AllTests',
+        'sap/ui/demo/cart/test/integration/AllJourneys'
+      ]
     },
 
     preprocessors: {
-      'webapp/model/**/*.js': ['coverage'],
+      'webapp/model/**/*.js':      ['coverage'],
       'webapp/controller/**/*.js': ['coverage']
     },
 
@@ -53,12 +53,12 @@ module.exports = function (config) {
     },
 
     sonarQubeUnitReporter: {
-    sonarQubeVersion: 'LATEST',
-    outputFile: 'reports/test-execution.xml',
-    overrideTestDescription: true,
-    testPaths: ['webapp/test'],       
-    testFilePattern: '.js',
-    useBrowserName: false
+      sonarQubeVersion:        'LATEST',
+      outputFile:              'reports/test-execution.xml',
+      overrideTestDescription: true,
+      testPaths:               ['webapp/test'],
+      testFilePattern:         '.js',
+      useBrowserName:          false
     },
 
     port:          9876,
@@ -69,14 +69,14 @@ module.exports = function (config) {
 
     customLaunchers: {
       SeleniumChrome: {
-        base: 'WebDriver',
+        base:       'WebDriver',
         config: {
           hostname: process.env.PIPER_SELENIUM_WEBDRIVER_HOSTNAME || 'selenium',
           port:     parseInt(process.env.PIPER_SELENIUM_WEBDRIVER_PORT, 10) || 4444
         },
         browserName:            'chrome',
         name:                   'Karma',
-         flags: ['--no-sandbox', '--disable-dev-shm-usage', '--headless'],
+        flags: ['--no-sandbox', '--disable-dev-shm-usage', '--headless'],
         pseudoActivityInterval: 30000
       }
     },
@@ -97,14 +97,14 @@ module.exports = function (config) {
     browserDisconnectTolerance: 3,
     browserNoActivityTimeout:   420000,
 
-    colors:              true,
-    logLevel:            config.LOG_INFO,
-    autoWatch:           false,
-    singleRun:           true,
+    colors:               true,
+    logLevel:             config.LOG_INFO,
+    autoWatch:            false,
+    singleRun:            true,
     failOnEmptyTestSuite: false,
-    concurrency:         1,
-    forceJSONP:          false,
-    reportSlowerThan:    500,
+    concurrency:          1,
+    forceJSONP:           false,
+    reportSlowerThan:     500,
 
     plugins: [
       'karma-ui5',

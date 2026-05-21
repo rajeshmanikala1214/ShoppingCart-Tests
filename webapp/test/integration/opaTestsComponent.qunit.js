@@ -1,3 +1,4 @@
+//webapp\test\integration\opaTestsComponent.qunit.js
 sap.ui.define([
     "sap/ui/test/Opa5",
     "sap/ui/demo/cart/test/integration/arrangements/component/Startup",
