@@ -8,7 +8,8 @@ sap.ui.define([
     "./pages/Cart",
     "./pages/Dialog",
     "./pages/Checkout",
-    "./pages/OrderCompleted"
+    "./pages/OrderCompleted",
+    "sap/ui/demo/cart/test/integration/AllJourneys" // Bundled into the main dependency array
 ], function (Opa5, Startup) {
     "use strict";
 
@@ -17,11 +18,6 @@ sap.ui.define([
         viewNamespace: "sap.ui.demo.cart.view.",
         autoWait: true
     });
-
-    // CRITICAL FOR LOCAL RUNS: This triggers the Testsuite loader to pick up the files
-    sap.ui.require([
-        "sap/ui/demo/cart/test/integration/AllJourneys"
-    ], function () {
-        QUnit.start();
-    });
+    
+    // Manual nested sap.ui.require and QUnit.start() REMOVED
 });

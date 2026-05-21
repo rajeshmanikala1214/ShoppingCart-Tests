@@ -6,23 +6,23 @@
 sap.ui.define([
     "sap/ui/test/Opa5",
     "sap/ui/demo/cart/test/integration/arrangements/component/Startup",
-    "./pages/Home",
-    "./pages/Welcome",
-    "./pages/Category",
-    "./pages/Product",
-    "./pages/Cart",
-    "./pages/Dialog",
-    "./pages/Checkout",
-    "./pages/OrderCompleted",
-    "sap/ui/demo/cart/test/integration/AllJourneys" // Bundled into the main dependency array
+    "sap/ui/demo/cart/test/integration/WelcomeJourney",
+    "sap/ui/demo/cart/test/integration/NavigationJourney",
+    "sap/ui/demo/cart/test/integration/FilterJourney",
+    "sap/ui/demo/cart/test/integration/CartJourney",
+    "sap/ui/demo/cart/test/integration/CategoryJourney",
+    "sap/ui/demo/cart/test/integration/CheckoutJourney",
+    "sap/ui/demo/cart/test/integration/ComparisonJourney",
+    "sap/ui/demo/cart/test/integration/PhoneNavigationJourney"
 ], function (Opa5, Startup) {
     "use strict";
 
+    // Configure OPA5 globally for the Component-based test approach.
+    // This matches what opaTestsComponent.qunit.js sets up.
     Opa5.extendConfig({
-        arrangements: new Startup(),
-        viewNamespace: "sap.ui.demo.cart.view.",
-        autoWait: true
+        arrangements:    new Startup(),
+        viewNamespace:   "sap.ui.demo.cart.view.",
+        autoWait:        true
     });
-    
-    // Manual nested sap.ui.require and QUnit.start() REMOVED
+    // karma-ui5 calls QUnit.start() automatically after all modules load.
 });
