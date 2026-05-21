@@ -11,13 +11,12 @@ module.exports = function (config) {
     ui5: {
       url: 'https://sapui5.hana.ondemand.com',
       mode: 'script',
+      version: '1.120.17',  // Use a stable 1.120 LTS version
       config: {
         async: true,
         // Pin to exact version matching your manifest.json minUI5Version
-        version: '1.120.17',  // Use a stable 1.120 LTS version
         resourceRoots: {
-          'sap.ui.demo.cart':      '/base/webapp',
-          'sap.ui.demo.cart.test': '/base/webapp/test'
+          'sap.ui.demo.cart':      '/base/webapp'
         }
       },
       tests: [
@@ -31,7 +30,7 @@ module.exports = function (config) {
       'webapp/controller/**/*.js': ['coverage']
     },
 
-    reporters: ['progress', 'junit', 'coverage', 'sonarqubeUnit'],
+    reporters: ['progress', 'junit', 'coverage'],
 
     junitReporter: {
       outputDir:      'reports',
@@ -116,8 +115,7 @@ module.exports = function (config) {
       'karma-chrome-launcher',
       'karma-junit-reporter',
       'karma-coverage',
-      'karma-webdriver-launcher',
-      'karma-sonarqube-unit-reporter'
+      'karma-webdriver-launcher'
     ]
   });
 };
