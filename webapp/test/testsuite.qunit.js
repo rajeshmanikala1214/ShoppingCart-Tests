@@ -13,11 +13,20 @@ sap.ui.define(() => {
     return {
         name: "QUnit test suite for Shopping Cart",
         defaults: {
+            
+            //For Karma:
             // FIX: Point directly to the virtual workspace runner address format
             page: "ui5://sap/ui/demo/cart/test/Test.qunit.html?testsuite={suite}&test={name}",
+            
+            
+            //For Local:
+            // FIX: Point directly to the virtual workspace runner address format
+            // page: "ui5://test-resources/sap/ui/demo/cart/Test.qunit.html?testsuite={suite}&test={name}",            
+            
+            // No explicit qunit/sinon version pinning — use UI5 defaults
             ui5: {
                 language: "en",
-                theme: "sap_horizon"
+                theme:    "sap_horizon"
             },
             loader: {
                 paths: {
