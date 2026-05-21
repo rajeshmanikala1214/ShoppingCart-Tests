@@ -16,7 +16,7 @@ module.exports = function (config) {
         async: true,
         // Pin to exact version matching your manifest.json minUI5Version
         resourceRoots: {
-          'sap.ui.demo.cart':      '/base/webapp'
+          'sap.ui.demo.cart': '/base/webapp'
         }
       },
       tests: [
@@ -76,9 +76,7 @@ module.exports = function (config) {
         flags: [
           '--no-sandbox',
           '--disable-dev-shm-usage',
-          '--headless',
-          '--disable-web-security',
-          '--allow-running-insecure-content'
+          '--headless'
         ],
         pseudoActivityInterval: 30000
       }
