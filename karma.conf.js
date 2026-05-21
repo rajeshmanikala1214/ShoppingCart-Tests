@@ -4,13 +4,13 @@ module.exports = function (config) {
   config.set({
 
     basePath: '',
-    frameworks: ['ui5'],
+    frameworks: ['ui5', 'qunit'],
 
     // NO files array - karma-ui5 handles this internally
 
     ui5: {
       url: 'https://sapui5.hana.ondemand.com',
-      mode: 'html',
+      mode: 'script',
       version: '1.120.17',  // Use a stable 1.120 LTS version
       config: {
         async: true,
