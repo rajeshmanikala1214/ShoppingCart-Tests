@@ -51,6 +51,15 @@ module.exports = function (config) {
       ]
     },
 
+    sonarQubeUnitReporter: {
+    sonarQubeVersion: 'LATEST',
+    outputFile: 'reports/test-execution.xml',
+    overrideTestDescription: true,
+    testPaths: ['webapp/test'],       
+    testFilePattern: '.js',
+    useBrowserName: false
+    },
+    
     port:          9876,
     hostname:      process.env.PIPER_SELENIUM_HOSTNAME || '0.0.0.0',
     listenAddress: '0.0.0.0',
@@ -66,6 +75,7 @@ module.exports = function (config) {
         },
         browserName:            'chrome',
         name:                   'Karma',
+         flags: ['--no-sandbox', '--disable-dev-shm-usage', '--headless'],
         pseudoActivityInterval: 30000
       }
     },
