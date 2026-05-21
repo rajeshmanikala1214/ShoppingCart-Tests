@@ -37,7 +37,8 @@ module.exports = function (config) {
       //   → /base/webapp/test/unit/AllTests.js  ✓
       tests: [
         'sap/ui/demo/cart/test/unit/AllTests',
-        'sap/ui/demo/cart/test/integration/AllJourneys'
+        'sap/ui/demo/cart/test/integration/AllJourneys',
+        'sap/ui/demo/cart/test/integration/AllGherkinJourneys'
       ]
     },
 
