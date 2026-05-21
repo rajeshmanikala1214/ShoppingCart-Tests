@@ -4,7 +4,7 @@ module.exports = function (config) {
   config.set({
 
     basePath: '',
-    frameworks: ['ui5', 'qunit'],
+    frameworks: ['ui5'],
 
     // NO files array - karma-ui5 handles this internally
 
