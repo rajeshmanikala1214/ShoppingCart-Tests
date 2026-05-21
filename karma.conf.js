@@ -14,11 +14,7 @@ module.exports = function (config) {
 
     ui5: {
       url: 'https://ui5.sap.com',
-     // FIX: Changed from 'application' to 'html' to match your version of karma-ui5
-      mode: 'html',
-      
-      // Points directly to your physical testsuite HTML launcher file
-      testpage: 'webapp/test/testsuite.qunit.html',
+      mode: 'script',
       config: {
         async: true,
         resourceRoots: {
@@ -27,9 +23,9 @@ module.exports = function (config) {
           'sap.ui.demo.cart.test': '/base/webapp/test'
         }
       },
-      // tests: [
-      //   'sap/ui/demo/cart/test/testsuite.qunit'
-      // ]
+      tests: [
+        'sap/ui/demo/cart/test/testsuite.qunit'
+      ]
     },
 
     preprocessors: {
