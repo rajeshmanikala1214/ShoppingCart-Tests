@@ -3,7 +3,7 @@
 module.exports = function (config) {
   config.set({
 
-    basePath: '.',
+    basePath:   '',
     // Cleaned up: Removed mocha and browserify to prevent context lockups
     frameworks: ['ui5', 'qunit'],
 
@@ -14,18 +14,22 @@ module.exports = function (config) {
 
     ui5: {
       url: 'https://ui5.sap.com',
-      mode: 'script',
+      // FIX 3: Switch from 'script' to 'application' mode
+      mode: 'application',
+      
+      // FIX 4: Point directly to your physical testsuite HTML launcher file
+      testpage: 'webapp/test/testsuite.qunit.html',
       config: {
         async: true,
         resourceRoots: {
           // Point these directly to the mapped asset structure
-          'sap.ui.demo.cart': '/./webapp',
-          'sap.ui.demo.cart.test': './webapp/test'
+          'sap.ui.demo.cart': '/base/webapp',
+          'sap.ui.demo.cart.test': '/base/webapp/test'
         }
       },
-      tests: [
-        'sap/ui/demo/cart/test/testsuite.qunit'
-      ]
+      // tests: [
+      //   'sap/ui/demo/cart/test/testsuite.qunit'
+      // ]
     },
 
     preprocessors: {
