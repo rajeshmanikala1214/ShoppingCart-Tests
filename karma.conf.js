@@ -20,7 +20,7 @@ module.exports = function (config) {
           'sap.ui.demo.cart.test': '/base/webapp/test',
         }
       },
-      testpage: '/base/webapp/test/testsuite.qunit.html'
+      Testpage: '/base/webapp/test/testsuite.qunit.html'
       // tests: [
       //   'sap/ui/demo/cart/test/unit/AllTests',
       //   'sap/ui/demo/cart/test/integration/AllJourneys'
