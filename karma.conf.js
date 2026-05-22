@@ -4,12 +4,12 @@ module.exports = function (config) {
   config.set({
 
     basePath: '',
-    frameworks: ['ui5'],   // ← qunit is loaded by karma-ui5 automatically in v4
+    frameworks: ['ui5', 'qunit'],   // ← qunit MUST be here for script mode
 
     ui5: {
       url: 'https://ui5.sap.com',
       mode: 'script',
-      version: '1.120.17',   // ← MUST be at ui5 root level, not inside config{}
+      version: '1.120.17',
       config: {
         async: true,
         resourceRoots: {
@@ -95,6 +95,7 @@ module.exports = function (config) {
 
     plugins: [
       'karma-ui5',
+      'karma-qunit',
       'karma-chrome-launcher',
       'karma-junit-reporter',
       'karma-coverage',
