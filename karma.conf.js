@@ -10,7 +10,7 @@ module.exports = function (config) {
 
     ui5: {
       url: 'https://sapui5.hana.ondemand.com',
-      mode: 'html',
+      mode: 'script',
       version: '1.120.17',  // Use a stable 1.120 LTS version
       config: {
         async: true,
@@ -20,11 +20,11 @@ module.exports = function (config) {
           'sap.ui.demo.cart.test': '/base/webapp/test',
         }
       },
-      Testpage: '/base/webapp/test/testsuite.qunit.html'
-      // tests: [
-      //   'sap/ui/demo/cart/test/unit/AllTests',
-      //   'sap/ui/demo/cart/test/integration/AllJourneys'
-      // ]
+      //Testpage: '/base/webapp/test/testsuite.qunit.html'
+      tests: [
+        'sap/ui/demo/cart/test/unit/AllTests',
+        'sap/ui/demo/cart/test/integration/AllJourneys'
+      ]
     },
 
     preprocessors: {
