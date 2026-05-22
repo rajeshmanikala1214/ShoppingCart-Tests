@@ -4,7 +4,7 @@ module.exports = function (config) {
   config.set({
 
     basePath: '',
-    frameworks: ['ui5', 'qunit'],
+    frameworks: ['ui5'],
 
     // NO files array - karma-ui5 handles this internally
 
@@ -19,11 +19,11 @@ module.exports = function (config) {
           'sap.ui.demo.cart': '/base/webapp',
           'sap.ui.demo.cart.test': '/base/webapp/test',
         }
-      },
-      tests: [
-        'sap/ui/demo/cart/test/unit/AllTests',
-        'sap/ui/demo/cart/test/integration/AllJourneys'
-      ]
+      }
+      // tests: [
+      //   'sap/ui/demo/cart/test/unit/AllTests',
+      //   'sap/ui/demo/cart/test/integration/AllJourneys'
+      // ]
     },
 
     preprocessors: {
