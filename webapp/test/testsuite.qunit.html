@@ -2,27 +2,52 @@
 <html>
 <head>
 <meta charset="utf-8">
+<title>QUnit TestSuite</title>
  
     <script
 
         id="sap-ui-bootstrap"
+
         src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+
         data-sap-ui-async="true"
+
+        data-sap-ui-on-init="module:sap/ui/core/ComponentSupport"
+
         data-sap-ui-resourceroots='{
+
             "sap.ui.demo.cart": "../../"
+
         }'>
 </script>
  
+    <!-- IMPORTANT -->
+<script src="https://sapui5.hana.ondemand.com/resources/sap/ui/thirdparty/qunit.js"></script>
+<link rel="stylesheet"
+
+          href="https://sapui5.hana.ondemand.com/resources/sap/ui/thirdparty/qunit-2.css">
+ 
+    <script src="https://sapui5.hana.ondemand.com/resources/sap/ui/qunit/qunit-junit.js"></script>
+ 
     <script>
+
         sap.ui.getCore().attachInit(function () {
+ 
             sap.ui.require([
+
                 "sap/ui/demo/cart/test/unit/AllTests",
+
                 "sap/ui/demo/cart/test/integration/AllJourneys"
+
             ], function () {
+
                 QUnit.start();
+
             });
+ 
         });
 </script>
+ 
 </head>
  
 <body class="sapUiBody">
