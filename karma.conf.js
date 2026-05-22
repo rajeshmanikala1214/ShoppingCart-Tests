@@ -10,7 +10,7 @@ module.exports = function (config) {
 
     ui5: {
       url: 'https://sapui5.hana.ondemand.com',
-      mode: 'script',
+      mode: 'html',
       version: '1.120.17',  // Use a stable 1.120 LTS version
       config: {
         async: true,

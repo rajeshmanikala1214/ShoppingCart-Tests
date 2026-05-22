@@ -10,19 +10,25 @@
             height: 100%;
         }
     </style>
-    <script
+     <script
         id="sap-ui-bootstrap"
         src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
-        data-sap-ui-theme="sap_horizon"
-        data-sap-ui-resource-roots='{
-            "sap.ui.demo.cart": "./",
-            "sap.ui.demo.mock": "./localService/mockdata"
-        }'
-        data-sap-ui-on-init="module:sap/ui/demo/cart/initMockServer"
-        data-sap-ui-compat-version="edge"
         data-sap-ui-async="true"
-        data-sap-ui-frame-options="trusted"
-    ></script>
+        data-sap-ui-resourceroots='{
+            "sap.ui.demo.cart": "../../"
+        }'>
+</script>
+ 
+    <script>
+        sap.ui.getCore().attachInit(function () {
+            sap.ui.require([
+                "sap/ui/demo/cart/test/unit/AllTests",
+                "sap/ui/demo/cart/test/integration/AllJourneys"
+            ], function () {
+                QUnit.start();
+            });
+        });
+</script>
 </head>
 <body class="sapUiBody sapUiSizeCompact" id="content">
     <div
