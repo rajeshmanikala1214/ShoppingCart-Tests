@@ -7,4 +7,3 @@ sap.ui.require([
     "sap/ui/demo/cart/test/unit/model/LocalStorageModel",
     "sap/ui/demo/cart/test/unit/model/models"
 ]);
-// karma-ui5 calls QUnit.start() automatically — do NOT call it here

@@ -4,21 +4,15 @@ module.exports = function (config) {
   config.set({
 
     basePath: '',
-    frameworks: ['ui5', 'qunit'],
-
-    // ✅ REMOVE the files array entirely.
-    // karma-ui5 registers webapp/** internally. Your explicit entry
-    // creates a duplicate that Karma deduplicates — resulting in 0 files served.
-    // files: [],   <-- leave this out completely
+    frameworks: ['ui5'],   // ← qunit is loaded by karma-ui5 automatically in v4
 
     ui5: {
       url: 'https://ui5.sap.com',
       mode: 'script',
+      version: '1.120.17',   // ← MUST be at ui5 root level, not inside config{}
       config: {
         async: true,
         resourceRoots: {
-          // ✅ /base/ prefix is REQUIRED — Karma serves project files under /base/
-          // ✅ No trailing slash
           'sap.ui.demo.cart':      '/base/webapp',
           'sap.ui.demo.cart.test': '/base/webapp/test'
         }
@@ -34,7 +28,7 @@ module.exports = function (config) {
       'webapp/controller/**/*.js': ['coverage']
     },
 
-    reporters: ['progress', 'junit', 'coverage', 'sonarqubeUnit'],
+    reporters: ['progress', 'junit', 'coverage'],
 
     junitReporter: {
       outputDir:      'reports',
@@ -52,15 +46,6 @@ module.exports = function (config) {
       ]
     },
 
-    sonarQubeUnitReporter: {
-      sonarQubeVersion:        'LATEST',
-      outputFile:              'reports/test-execution.xml',
-      overrideTestDescription: true,
-      testPaths:               ['webapp/test'],
-      testFilePattern:         '.js',
-      useBrowserName:          false
-    },
-
     port:          9876,
     hostname:      process.env.PIPER_SELENIUM_HOSTNAME || '0.0.0.0',
     listenAddress: '0.0.0.0',
@@ -69,14 +54,18 @@ module.exports = function (config) {
 
     customLaunchers: {
       SeleniumChrome: {
-        base:       'WebDriver',
+        base: 'WebDriver',
         config: {
           hostname: process.env.PIPER_SELENIUM_WEBDRIVER_HOSTNAME || 'selenium',
           port:     parseInt(process.env.PIPER_SELENIUM_WEBDRIVER_PORT, 10) || 4444
         },
         browserName:            'chrome',
         name:                   'Karma',
-        flags: ['--no-sandbox', '--disable-dev-shm-usage', '--headless'],
+        flags: [
+          '--no-sandbox',
+          '--disable-dev-shm-usage',
+          '--headless'
+        ],
         pseudoActivityInterval: 30000
       }
     },
@@ -103,17 +92,13 @@ module.exports = function (config) {
     singleRun:            true,
     failOnEmptyTestSuite: false,
     concurrency:          1,
-    forceJSONP:           false,
-    reportSlowerThan:     500,
 
     plugins: [
       'karma-ui5',
-      'karma-qunit',
       'karma-chrome-launcher',
       'karma-junit-reporter',
       'karma-coverage',
-      'karma-webdriver-launcher',
-      'karma-sonarqube-unit-reporter'
+      'karma-webdriver-launcher'
     ]
   });
 };
