@@ -4,23 +4,25 @@ module.exports = function (config) {
   config.set({
 
     basePath: '',
-    frameworks: ['ui5'],
+    frameworks: ['ui5', 'qunit'],
 
-    // NO files array - karma-ui5 handles this internally
+    // ✅ REMOVE the files array entirely.
+    // karma-ui5 registers webapp/** internally. Your explicit entry
+    // creates a duplicate that Karma deduplicates — resulting in 0 files served.
+    // files: [],   <-- leave this out completely
 
     ui5: {
-      url: 'https://sapui5.hana.ondemand.com',
+      url: 'https://ui5.sap.com',
       mode: 'script',
-      version: '1.120.17',  // Use a stable 1.120 LTS version
       config: {
         async: true,
-        // Pin to exact version matching your manifest.json minUI5Version
         resourceRoots: {
-          'sap.ui.demo.cart': '/base/webapp',
-          'sap.ui.demo.cart.test': '/base/webapp/test',
+          // ✅ /base/ prefix is REQUIRED — Karma serves project files under /base/
+          // ✅ No trailing slash
+          'sap.ui.demo.cart':      '/base/webapp',
+          'sap.ui.demo.cart.test': '/base/webapp/test'
         }
       },
-      //Testpage: '/base/webapp/test/testsuite.qunit.html'
       tests: [
         'sap/ui/demo/cart/test/unit/AllTests',
         'sap/ui/demo/cart/test/integration/AllJourneys'
@@ -32,7 +34,7 @@ module.exports = function (config) {
       'webapp/controller/**/*.js': ['coverage']
     },
 
-    reporters: ['progress', 'junit', 'coverage'],
+    reporters: ['progress', 'junit', 'coverage', 'sonarqubeUnit'],
 
     junitReporter: {
       outputDir:      'reports',
@@ -67,19 +69,14 @@ module.exports = function (config) {
 
     customLaunchers: {
       SeleniumChrome: {
-        base: 'WebDriver',
+        base:       'WebDriver',
         config: {
           hostname: process.env.PIPER_SELENIUM_WEBDRIVER_HOSTNAME || 'selenium',
           port:     parseInt(process.env.PIPER_SELENIUM_WEBDRIVER_PORT, 10) || 4444
         },
         browserName:            'chrome',
         name:                   'Karma',
-        // Added --disable-web-security to prevent CORS/TLS issues loading UI5 from CDN
-        flags: [
-          '--no-sandbox',
-          '--disable-dev-shm-usage',
-          '--headless'
-        ],
+        flags: ['--no-sandbox', '--disable-dev-shm-usage', '--headless'],
         pseudoActivityInterval: 30000
       }
     },
@@ -115,7 +112,8 @@ module.exports = function (config) {
       'karma-chrome-launcher',
       'karma-junit-reporter',
       'karma-coverage',
-      'karma-webdriver-launcher'
+      'karma-webdriver-launcher',
+      'karma-sonarqube-unit-reporter'
     ]
   });
 };
