@@ -4,89 +4,39 @@
     "id": "sap.ui.demo.cart",
     "type": "application",
     "i18n": "i18n/i18n.properties",
-    "applicationVersion": {
-      "version": "0.0.1"
-    },
+    "applicationVersion": { "version": "0.0.1" },
     "title": "{{appTitle}}",
     "description": "{{appDescription}}",
     "resources": "resources.json",
     "dataSources": {
-			"mainService": {
-				"uri": "/sap/opu/odata/IWBEP/EPM_DEVELOPER_SCENARIO_SRV/",
-				"type": "OData",
-				"settings": {
-					"odataVersion": "2.0",
-					"localUri": "localService/metadata.xml"
-				}
-			}
-		},
-    "sourceTemplate": {
-      "id": "@sap/generator-fiori:basic",
-      "version": "1.24.0",
-      "toolsId": "3a10c120-03d3-4f37-8949-c9318f880b0d"
-    },
-    "crossNavigation": {
-      "inbounds": {
-        "cart-display": {
-          "semanticObject": "cart",
-          "action": "display",
-          "title": "{{cart-display.flpTitle}}",
-          "subTitle": "{{cart-display.flpSubtitle}}",
-          "signature": {
-            "parameters": {},
-            "additionalParameters": "allowed"
-          }
+      "mainService": {
+        "uri": "/sap/opu/odata/IWBEP/EPM_DEVELOPER_SCENARIO_SRV/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "2.0",
+          "localUri": "localService/metadata.xml"
         }
       }
     }
   },
   "sap.ui": {
     "technology": "UI5",
-    "icons": {
-      "icon": "",
-      "favIcon": "",
-      "phone": "",
-      "phone@2": "",
-      "tablet": "",
-      "tablet@2": ""
-    },
-    "deviceTypes": {
-      "desktop": true,
-      "tablet": true,
-      "phone": true
-    }
+    "deviceTypes": { "desktop": true, "tablet": true, "phone": true }
   },
   "sap.ui5": {
     "flexEnabled": true,
     "dependencies": {
-      "minUI5Version": "1.148.0",
-      "libs": {
-        "sap.m": {},
-        "sap.ui.core": {}
-      }
-    },
-    "contentDensities": {
-      "compact": true,
-      "cozy": true
+      "minUI5Version": "1.120.0",
+      "libs": { "sap.m": {}, "sap.ui.core": {}, "sap.f": {} }
     },
     "models": {
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
-        "settings": {
-          "bundleName": "sap.ui.demo.cart.i18n.i18n"
-        }
+        "settings": { "bundleName": "sap.ui.demo.cart.i18n.i18n" }
       },
-      "": {
-				"dataSource": "mainService"
-			}
+      "": { "dataSource": "mainService" }
     },
-    "resources": {
-      "css": [
-        {
-          "uri": "css/style.css"
-        }
-      ]
-    },
+    "resources": { "css": [{ "uri": "css/style.css" }] },
     "routing": {
       "config": {
         "routerClass": "sap.f.routing.Router",
@@ -98,170 +48,27 @@
         "async": true,
         "viewPath": "sap.ui.demo.cart.view",
         "controlAggregation": "midColumnPages",
-				"bypassed": {
-					"target": [
-						"home",
-						"notFound"
-					]
-				}
+        "bypassed": { "target": ["home", "notFound"] }
       },
-     		"routes": [
-				{
-					"pattern": "",
-					"name": "home",
-					"target": [
-						"home",
-						"welcome"
-					]
-				},
-				{
-					"pattern": "categories",
-					"name": "categories",
-					"target": [
-						"home",
-						"welcome"
-					]
-				},
-				{
-					"pattern": "category/{id}",
-					"name": "category",
-					"target": [
-						"welcome",
-						"category"
-					],
-					"titleTarget": "category"
-				},
-				{
-					"pattern": "category/{id}/product/{productId}",
-					"name": "product",
-					"target": [
-						"category",
-						"product"
-					],
-					"titleTarget": "product"
-				},
-				{
-					"pattern": "category/{id}/compare/:item1Id:/:item2Id:",
-					"name": "comparison",
-					"target": [
-						"category",
-						"comparison"
-					],
-					"titleTarget": "comparison"
-				},
-				{
-					"pattern": "category/{id}/compare/:item1Id:/:item2Id:/cart",
-					"name": "comparisonCart",
-					"target": [
-						"category",
-						"comparison",
-						"cart"
-					],
-					"titleTarget": "comparison"
-				},
-				{
-					"pattern": "category/{id}/product/{productId}/cart",
-					"name": "productCart",
-					"target": [
-						"category",
-						"product",
-						"cart"
-					],
-					"titleTarget": "product"
-				},
-				{
-					"pattern": "cart",
-					"name": "cart",
-					"target": [
-						"home",
-						"welcome",
-						"cart"
-					]
-				},
-				{
-					"pattern": "checkout",
-					"name": "checkout",
-					"target": "checkout"
-				},
-				{
-					"pattern": "ordercompleted",
-					"name": "ordercompleted",
-					"target": "ordercompleted"
-				}
-			],
-			"targets": {
-				"product": {
-					"name": "Product",
-					"level": 3,
-					"id": "product",
-					"controlAggregation": "midColumnPages",
-					"title": "{Name}"
-				},
-				"comparison": {
-					"name": "Comparison",
-					"level": 3,
-					"id": "comparison",
-					"controlAggregation": "midColumnPages",
-					"title": "{Name}"
-				},
-				"category": {
-					"name": "Category",
-					"level": 2,
-					"controlAggregation": "beginColumnPages",
-					"id": "category",
-					"title": {
-						"parts": [
-							"i18n>tabTitle",
-							"CategoryName"
-						]
-					}
-				},
-				"notFound": {
-					"name": "NotFound",
-					"level": 3,
-					"controlAggregation": "midColumnPages",
-					"id": "notFoundView",
-					"title": "{i18n>categoryNoData}"
-				},
-				"welcome": {
-					"name": "Welcome",
-					"level": 0,
-					"id": "welcomeView",
-					"controlAggregation": "midColumnPages"
-				},
-				"home": {
-					"name": "Home",
-					"level": 1,
-					"controlAggregation": "beginColumnPages",
-					"id": "homeView",
-					"title": "{i18n>appTitle}"
-				},
-				"cart": {
-					"name": "Cart",
-					"controlAggregation": "endColumnPages",
-					"id": "cartView",
-					"title": {
-						"parts": [
-							"i18n>tabTitle",
-							"i18n>tableTitleCart"
-						]
-					}
-				},
-				"checkout": {
-					"name": "Checkout",
-					"controlAggregation": "beginColumnPages",
-					"level": 1,
-					"title": "{i18n>checkoutTitle}",
-					"id": "checkoutView"
-				},
-				"ordercompleted": {
-					"name": "OrderCompleted",
-					"controlAggregation": "beginColumnPages",
-					"level": 2,
-					"id": "orderCompletedView",
-					"title": "{i18n>orderCompletedTitle}"
-				}
-			}
+      "routes": [
+        { "pattern": "", "name": "home", "target": ["home", "welcome"] },
+        { "pattern": "category/{id}", "name": "category", "target": ["welcome", "category"], "titleTarget": "category" },
+        { "pattern": "category/{id}/product/{productId}", "name": "product", "target": ["category", "product"], "titleTarget": "product" },
+        { "pattern": "cart", "name": "cart", "target": ["home", "welcome", "cart"] },
+        { "pattern": "checkout", "name": "checkout", "target": "checkout" },
+        { "pattern": "ordercompleted", "name": "ordercompleted", "target": "ordercompleted" }
+      ],
+      "targets": {
+        "welcome":      { "name": "Welcome",      "level": 0, "id": "welcomeView",      "controlAggregation": "midColumnPages" },
+        "home":         { "name": "Home",          "level": 1, "id": "homeView",         "controlAggregation": "beginColumnPages", "title": "{i18n>appTitle}" },
+        "category":     { "name": "Category",      "level": 2, "id": "category",         "controlAggregation": "beginColumnPages" },
+        "product":      { "name": "Product",       "level": 3, "id": "product",          "controlAggregation": "midColumnPages" },
+        "comparison":   { "name": "Comparison",    "level": 3, "id": "comparison",       "controlAggregation": "midColumnPages" },
+        "cart":         { "name": "Cart",          "id": "cartView",                     "controlAggregation": "endColumnPages" },
+        "checkout":     { "name": "Checkout",      "level": 1, "id": "checkoutView",     "controlAggregation": "beginColumnPages" },
+        "ordercompleted":{ "name": "OrderCompleted","level": 2, "id": "orderCompletedView","controlAggregation": "beginColumnPages" },
+        "notFound":     { "name": "NotFound",      "level": 3, "id": "notFoundView",     "controlAggregation": "midColumnPages" }
+      }
     },
     "rootView": {
       "viewName": "sap.ui.demo.cart.view.App",
@@ -269,9 +76,5 @@
       "id": "App",
       "async": true
     }
-  },
-  "sap.cloud": {
-    "public": true,
-    "service": "sapuidemocart"
   }
 }
