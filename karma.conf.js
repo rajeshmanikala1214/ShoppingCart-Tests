@@ -102,6 +102,7 @@ module.exports = function (config) {
       'karma-chrome-launcher',
       'karma-junit-reporter',
       'karma-coverage',
+      'karma-browserify',
       'karma-webdriver-launcher'
     ],
 
