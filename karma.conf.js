@@ -96,6 +96,13 @@ module.exports = function (config) {
     browserDisconnectTolerance: 3,
     browserNoActivityTimeout:   420000,
 
+    client: {
+    captureConsole: true,
+    clearContext: false,
+    qunitHtml: true,
+    ui5: { config: { 'xx-debug': true } }
+    },
+    
     plugins: [
       'karma-ui5',
       'karma-qunit',
