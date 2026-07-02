@@ -99,6 +99,7 @@ module.exports = function (config) {
     plugins: [
       'karma-ui5',
       'karma-qunit',
+      'karma-mocha',
       'karma-chrome-launcher',
       'karma-junit-reporter',
       'karma-coverage',
