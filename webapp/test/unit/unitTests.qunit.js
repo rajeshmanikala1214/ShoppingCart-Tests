@@ -1,10 +1,9 @@
 // webapp/test/unit/unitTests.qunit.js
-// Entry point for unit tests when run via the Test Starter (local browser).
-// For Karma/CI, karma-ui5 uses AllTests.js directly — this file is not loaded.
-
 sap.ui.define([
-    "sap/ui/demo/cart/test/unit/AllTests"
-], function () {
-    "use strict";
-    // QUnit.start() REMOVED - Karma executes this automatically!
-});
+	"./model/models",
+	"./model/formatter",
+    "./model/EmailType",
+	"./model/LocalStorageModel",
+	"./controller/Checkout.controller",
+    "./helper/FakeI18nModel"
+]);

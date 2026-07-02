@@ -41,22 +41,22 @@ sap.ui.define(() => {
         },
         tests: {
             "unit/unitTests": {
-				title: "Unit tests for Browse Orders"
+				title: "Unit tests for Shopping Cart"
 			},
 			"integration/opaTestsComponent": {
-				title: "Integration tests for Browse Orders Navigation scenario"
+				title: "Integration tests for Shopping Cart Navigation scenario"
 			},
 			"integration/opaTestsGherkinComponent": {
-				title: "Integration tests for Browse Orders"
+				title: "Integration tests for Shopping Cart"
 			},
 			"integration/opaTestsGherkinIFrame": {
-				title: "Integration tests for Browse Orders on phone",
+				title: "Integration tests for Shopping Cart GherkinIFrame on phone",
 			},
             "integration/opaTestsIFrame": {
-				title: "Integration tests for Browse Orders"
+				title: "Integration tests for IFrame orders"
 			},
 			"integration/opaTestsPhone": {
-				title: "Integration tests for Browse Orders on phone",
+				title: "Integration tests for Shopping Cart on phone",
 			}
         }
     };
