@@ -4,17 +4,15 @@ module.exports = function (config) {
   config.set({
 
     basePath: '',
-    frameworks: ['ui5', 'qunit'],   // ← qunit MUST be here for script mode
+    frameworks: ['ui5', 'qunit'],
 
-    ui5: {
-      url: 'https://ui5.sap.com',
+     ui5: {
+      url: 'https://sapui5.hana.ondemand.com', 
       mode: 'script',
-      version: '1.120.17',
       config: {
-        async: true,
+        async:    true,
         resourceRoots: {
-          'sap.ui.demo.cart':      '/base/webapp',
-          'sap.ui.demo.cart.test': '/base/webapp/test'
+          'sap.ui.demo.cart': '/base/webapp',
         }
       },
       tests: [
@@ -22,10 +20,13 @@ module.exports = function (config) {
         'sap/ui/demo/cart/test/integration/AllJourneys'
       ]
     },
+    
+    files: [
+     { pattern: 'webapp/**/*', served: true, included: false, watched: false }
+    ],
 
     preprocessors: {
-      'webapp/model/**/*.js':      ['coverage'],
-      'webapp/controller/**/*.js': ['coverage']
+      'webapp/!(test)/**/*.js': ['coverage']
     },
 
     reporters: ['progress', 'junit', 'coverage'],
@@ -50,8 +51,16 @@ module.exports = function (config) {
     hostname:      process.env.PIPER_SELENIUM_HOSTNAME || '0.0.0.0',
     listenAddress: '0.0.0.0',
 
+    colors:               true,
+    logLevel:             config.LOG_INFO,
+    autoWatch:            false,
+    singleRun:            true,
+    failOnEmptyTestSuite: false,
+    concurrency:          1,
+    forceJSONP: false,
+    
     browsers: ['SeleniumChrome'],
-
+    
     customLaunchers: {
       SeleniumChrome: {
         base: 'WebDriver',
@@ -68,12 +77,7 @@ module.exports = function (config) {
         ],
         pseudoActivityInterval: 30000
       }
-    },
-
-    client: {
-      captureConsole: true,
-      clearContext:   false
-    },
+    },  
 
     browserConsoleLogOptions: {
       level:    'warn',
@@ -86,13 +90,6 @@ module.exports = function (config) {
     browserDisconnectTolerance: 3,
     browserNoActivityTimeout:   420000,
 
-    colors:               true,
-    logLevel:             config.LOG_INFO,
-    autoWatch:            false,
-    singleRun:            true,
-    failOnEmptyTestSuite: false,
-    concurrency:          1,
-
     plugins: [
       'karma-ui5',
       'karma-qunit',
@@ -100,6 +97,6 @@ module.exports = function (config) {
       'karma-junit-reporter',
       'karma-coverage',
       'karma-webdriver-launcher'
-    ]
+    ],
   });
 };
