@@ -11,7 +11,7 @@
 sap.ui.define(() => {
     "use strict";
     return {
-        name: "QUnit test suite for Shopping Cart",
+        name: "Test suite for Shopping Cart",
         defaults: {
             
             //For Karma:
@@ -24,24 +24,40 @@ sap.ui.define(() => {
             // page: "ui5://test-resources/sap/ui/demo/cart/Test.qunit.html?testsuite={suite}&test={name}",            
             
             // No explicit qunit/sinon version pinning — use UI5 defaults
+            qunit: {
+				version: 2
+			},
+			sinon: {
+				version: 1
+			},
             ui5: {
-                language: "en",
                 theme:    "sap_horizon"
             },
             loader: {
                 paths: {
-                    "sap/ui/demo/cart": "../",
-                    "sap/ui/demo/mock": "./../localService/mockdata"
+                    "sap/ui/demo/cart": "../"
                 }
             }
         },
         tests: {
             "unit/unitTests": {
-                title: "Unit tests for Shopping Cart"
-            },
-            "integration/opaTestsComponent": {
-                title: "OPA5 tests for Shopping Cart with Component"
-            }
+				title: "Unit tests for Browse Orders"
+			},
+			"integration/opaTestsComponent": {
+				title: "Integration tests for Browse Orders Navigation scenario"
+			},
+			"integration/opaTestsGherkinComponent": {
+				title: "Integration tests for Browse Orders"
+			},
+			"integration/opaTestsGherkinIFrame": {
+				title: "Integration tests for Browse Orders on phone",
+			},
+            "integration/opaTestsIFrame": {
+				title: "Integration tests for Browse Orders"
+			},
+			"integration/opaTestsPhone": {
+				title: "Integration tests for Browse Orders on phone",
+			}
         }
     };
 });
