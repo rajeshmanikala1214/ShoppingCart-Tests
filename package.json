@@ -46,7 +46,7 @@
     "build:cf": "ui5 build preload --clean-dest --config ui5-deploy.yaml --include-task=generateCachebusterInfo",
     "build:mta": "rimraf resources mta_archives && mbt build",
     "undeploy": "cf undeploy sapuidemocart --delete-services --delete-service-keys --delete-service-brokers",
-    "test:karma": "karma start karma.conf.js"
+    "test:karma": "karma start"
   },
   "sapuxLayer": "CUSTOMER_BASE"
 }
